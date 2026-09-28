@@ -4,8 +4,8 @@
 
 ### From Scores to Samples: Elastic Forcing for Autoregressive Video Generation
 
-Chi Zhang<sup>1,&#42;</sup> · Yueyi Liu<sup>1,2,&#42;</sup> · Haoyang Shi<sup>1,3,&#42;</sup> · Ruichuan An<sup>4</sup><br>
-Haoyu Li<sup>2</sup> · Yuhang Wu<sup>1</sup> · Sen Cui<sup>5</sup> · Miao Liu<sup>1,†</sup>
+Chi Zhang<sup>1 &#42;</sup> · Yueyi Liu<sup>1,2 &#42;</sup> · Haoyang Shi<sup>1,3 &#42;</sup> · Ruichuan An<sup>4</sup><br>
+Haoyu Li<sup>2</sup> · Yuhang Wu<sup>1</sup> · Sen Cui<sup>5</sup> · Miao Liu<sup>1 †</sup>
 
 <sup>1</sup> College of AI, Tsinghua University<br>
 <sup>2</sup> IAIR, Xi’an Jiaotong University · <sup>3</sup> Xianghui Academy, Fudan University<br>
