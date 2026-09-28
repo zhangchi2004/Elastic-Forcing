@@ -15,11 +15,10 @@ Haoyu Li<sup>2</sup> · Yuhang Wu<sup>1</sup> · Sen Cui<sup>5</sup> · Miao Liu
 
 [Contact Chi Zhang](mailto:imzc.2004@gmail.com) · [Contact Miao Liu](mailto:miaoliu@mail.tsinghua.edu.cn)
 
-[![Paper PDF](https://img.shields.io/badge/Paper-PDF-yellow?style=flat&logo=arxiv&logoColor=white)](https://raw.githubusercontent.com/yueyiliu08/Elastic-Forcing/main/docs/elastic-forcing.pdf?v=3399996653f7)
+[![Paper PDF](https://img.shields.io/badge/Paper-PDF-yellow?style=flat&logo=arxiv&logoColor=white)](docs/elastic-forcing.pdf)
 [![Project Page](https://img.shields.io/badge/Project-Page-orange?style=flat&logo=googlechrome&logoColor=white)](https://video-examples-m8r2v6.pages.dev/)
-[![GitHub Code](https://img.shields.io/badge/GitHub-Code-black?style=flat&logo=github&logoColor=white)](https://github.com/yueyiliu08/Elastic-Forcing)
+[![GitHub Code](https://img.shields.io/badge/GitHub-Code-black?style=flat&logo=github&logoColor=white)](https://github.com/zhangchi2004/Elastic-Forcing)
 [![Hugging Face Collection](https://img.shields.io/badge/Hugging%20Face-Collection-FFD21E?style=flat&logo=huggingface&logoColor=white)](https://huggingface.co/collections/liuyueyi-8/elastic-forcing-6aba0e62a4416b13ae7b13bf)
-![Visitors](https://visitor-badge.laobi.icu/badge?page_id=yueyiliu08.Elastic-Forcing&left_color=gray&right_color=blue)
 
 [1.3B Training & Inference](1.3B/README.md) · [14B Training & Inference](14B/README.md)
 
@@ -62,7 +61,7 @@ Elastic-Forcing/
 ## Getting Started
 
 ```bash
-git clone https://github.com/yueyiliu08/Elastic-Forcing.git
+git clone https://github.com/zhangchi2004/Elastic-Forcing.git
 cd Elastic-Forcing
 
 # Choose one model, then follow its README.
@@ -76,7 +75,7 @@ Validation is documented separately for [1.3B](1.3B/docs/validation.md) and [14B
 
 ## Acknowledgments
 
-This implementation builds on [Self-Forcing](https://github.com/guandeh17/Self-Forcing) and [Wan2.1](https://github.com/Wan-Video/Wan2.1). We also thank the authors of [DINOv3](https://github.com/facebookresearch/dinov3), [V-JEPA 2](https://github.com/facebookresearch/vjepa2), [VideoMAEv2](https://github.com/OpenGVLab/VideoMAEv2), and [VBench](https://github.com/Vchitect/VBench) for making their work available. Bundled source retains its upstream license notices; model weights and datasets follow their respective upstream terms.
+This implementation builds on [Self-Forcing](https://github.com/guandeh17/Self-Forcing) and [Wan2.1](https://github.com/Wan-Video/Wan2.1). We also thank the authors of [DINOv3](https://github.com/facebookresearch/dinov3), [V-JEPA 2](https://github.com/facebookresearch/vjepa2), [VideoMAEv2](https://github.com/OpenGVLab/VideoMAEv2), and [VBench](https://github.com/Vchitect/VBench) for making their work available. Bundled source retains its upstream license notices; see [third-party sources](THIRD_PARTY_NOTICES.md) for attribution and license references. Model weights and datasets follow their respective upstream terms.
 
 We are also deeply grateful to the Krea AI team for generously providing the ODE-initialized checkpoint for
 Wan2.1-T2V-14B. Their support allowed us to avoid reproducing an exceptionally computationally intensive

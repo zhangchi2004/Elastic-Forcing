@@ -9,7 +9,8 @@ presentation from the numerical choices retained in this release.
 ## Reading order
 
 The two model directories have the same main entry points. Start with 1.3B for the
-three-encoder configuration; 14B uses V-JEPA 2 and VideoMAEv2.
+three-encoder configuration; the released 14B configuration also uses DINOv3,
+V-JEPA 2, and VideoMAEv2.
 
 | Read | Purpose | 1.3B | 14B |
 |---|---|---|---|
