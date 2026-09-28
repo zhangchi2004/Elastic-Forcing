@@ -1,0 +1,99 @@
+{
+  "variant": "14B three encoders, checkpoint 80",
+  "training_config_sha256": "fba9c9abd26f9b6b08ed5450c97d01a250da2747c7325db469a2e2f204f694ab",
+  "reference_count": 8000,
+  "weights": [
+    10.0,
+    1.0,
+    1.0
+  ],
+  "divisor": 3.0,
+  "batch_geometry": [
+    256,
+    128,
+    128
+  ],
+  "branches": {
+    "DINOv3": {
+      "sigma": 341.2794189453125,
+      "landmark_shape": [
+        256,
+        1024,
+        1024
+      ],
+      "nystrom": {
+        "bandwidth_source": "median_frobenius_distance",
+        "generated_gram": "biased_exact_including_diagonal",
+        "kernel": "gaussian_rbf",
+        "kernel_metric": "frobenius",
+        "kmeans": "deterministic_farthest_first_lloyd",
+        "kmeans_iterations": 20,
+        "median_max_samples": 2048,
+        "num_landmarks": 256,
+        "reference_count": 8000,
+        "ridge": 1e-06,
+        "sample_axis": "video",
+        "sample_shape": [
+          1024,
+          1024
+        ],
+        "seed": 0
+      },
+      "content_hash": "67851f7828ee0b9e12643242ff93f2b2b9b7c56059e51b9b2f267972da15eba9"
+    },
+    "V-JEPA 2": {
+      "sigma": 3025.305908203125,
+      "landmark_shape": [
+        1024,
+        1024,
+        1024
+      ],
+      "nystrom": {
+        "bandwidth_source": "median_frobenius_distance",
+        "generated_gram": "biased_exact_including_diagonal",
+        "kernel": "gaussian_rbf",
+        "kernel_metric": "frobenius",
+        "kmeans": "deterministic_farthest_first_lloyd",
+        "kmeans_iterations": 20,
+        "median_max_samples": 2048,
+        "num_landmarks": 1024,
+        "reference_count": 8000,
+        "ridge": 1e-06,
+        "sample_axis": "video",
+        "sample_shape": [
+          1024,
+          1024
+        ],
+        "seed": 0
+      },
+      "content_hash": "d588e77dd6ea5d5611f5aeaac2c7f9a8c4e4fc36940209df32118a91e22d168b"
+    },
+    "VideoMAEv2": {
+      "sigma": 3204.123291015625,
+      "landmark_shape": [
+        256,
+        1280,
+        1024
+      ],
+      "nystrom": {
+        "bandwidth_source": "median_frobenius_distance",
+        "generated_gram": "biased_exact_including_diagonal",
+        "kernel": "gaussian_rbf",
+        "kernel_metric": "frobenius",
+        "kmeans": "deterministic_farthest_first_lloyd",
+        "kmeans_iterations": 20,
+        "median_max_samples": 2048,
+        "num_landmarks": 256,
+        "reference_count": 8000,
+        "ridge": 1e-06,
+        "sample_axis": "video",
+        "sample_shape": [
+          1280,
+          1024
+        ],
+        "seed": 0
+      },
+      "content_hash": "88d55200ebb71d20ea75c70358eb8e5e68511c030546c5f832b53e591dd5a9b2"
+    }
+  }
+}

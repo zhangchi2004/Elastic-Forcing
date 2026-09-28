@@ -1,0 +1,36 @@
+{
+  "training_updates": 1,
+  "distribution_batch": 256,
+  "differentiation_batch": 128,
+  "reference_batch": 128,
+  "encoders": [
+    "DINOv3",
+    "V-JEPA2",
+    "VideoMAEv2"
+  ],
+  "checkpoint_finite": true,
+  "optimizer_saved": true,
+  "rng_states": 4,
+  "video_frames": 81,
+  "video_shape": [
+    480,
+    832,
+    3
+  ],
+  "fps": 16.0,
+  "cpu_tests_passed": 31,
+  "optimizer_parameter_states": 825,
+  "adam_steps_all_one": true,
+  "first_frame_pixel_std": 58.5123941148281,
+  "hardware": "4 x NVIDIA H200",
+  "torch": "2.5.1+cu121",
+  "flash_attention": "2.7.4.post1",
+  "logged_generator_loss": 3.995,
+  "logged_generator_grad_norm_before_clipping": 44.62,
+  "feature_replay_max_abs": {
+    "dinov3": 0.0,
+    "vjepa2": 0.0,
+    "videomae_v2": 0.0
+  },
+  "scope": "One full-batch training update and checkpoint inference; not a full 150-update or VBench rerun"
+}

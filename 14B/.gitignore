@@ -1,0 +1,11 @@
+configs/local.yaml
+configs/local.env
+configs/path-remapping.json
+runs/
+outputs/
+cache/
+assets/
+.venv*/
+__pycache__/
+.pytest_cache/
+*.pyc

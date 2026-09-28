@@ -1,0 +1,290 @@
+# Public names follow the paper; code/utils/config.py accepts both these and legacy keys.
+# Numerical settings and resource identities are unchanged. See ../../docs/paper-to-code.md.
+
+
+# Initialization and checkpoint compatibility. Only the generator is optimized.
+initial_generator_checkpoint: /path/to/elastic-forcing-assets/checkpoints/ode_init.pt
+initial_generator_checkpoint_sha256: b5396b8076ab3b920c9e4f4a2b52daa2c98c9983fb5e067ae5160fdf778dce21
+resume_checkpoint: null
+
+# Distributed execution: wrap units and precision; score-model settings below are legacy/inactive.
+generator_fsdp_wrap_strategy: transformer
+real_score_fsdp_wrap_strategy: size
+fake_score_fsdp_wrap_strategy: size
+text_encoder_fsdp_wrap_strategy: size
+uses_score_models: false
+uses_real_score: false
+uses_fake_score: false
+
+# Autoregressive rollout: four candidate denoising times, with stochastic training exit steps.
+causal: true
+denoising_step_list:
+- 1000
+- 750
+- 500
+- 250
+warp_denoising_step: true
+timestep_shift: 5.0
+guidance_scale: 3.0
+fd_guidance_scale: 3.0
+mixed_precision: true
+
+# Training seed 0 requests a randomly chosen seed; use an explicit positive value for repeatable input draws.
+seed: 0
+
+# Paper Sec. 3.1: match generated videos in frozen representation spaces, not score-model outputs.
+training_objective: elastic_forcing
+training_loop: elastic_forcing
+feature_space: frozen_video_encoders
+mmd_estimator: hybrid_nystrom_monte_carlo
+objective_weight: 1.0
+
+# Each encoder loss M uses M / (stop_gradient(M) + epsilon); encoder weights follow this scaling.
+normalize_encoder_losses: true
+encoder_loss_normalization_epsilon: 0.0001
+
+# Reference features are read from disk. "Teacher" in legacy keys means reference data, not a live network.
+reference_feature_source: matched_encoder_features
+reference_feature_manifest: /path/to/elastic-forcing-assets/teacher_banks/triple_video_new8682_824/manifest.json
+reference_feature_manifest_sha256: 1001c568c0dd2c53c17b7c7b147d01968b304a52f8b8ebe849246e1c6e34f36d
+reference_feature_content_hash: 0e2431c6443f94a32418fddd93328d60c33bd78e2cc2c0751f9bce3960f36912
+
+# Reference video/prompt correspondence and immutable asset identities.
+reference_video_manifest: /path/to/elastic-forcing-assets/experiments/triple_video_new8682_824/source/new8682_824_matched.jsonl
+matched_manifest_sha256: fa8e8e24011e6d292920f63d55b7d4de24fd07ebf46e175a064deee30d2728e1
+reference_video_count: 8682
+matched_source_csv_sha256: d109dd7998a48916158dcc1a1d372c4e3a136f455257d4d272cbcb887a3a5b14
+matched_sample_identity_sha256: c342bee98db8c4096726f06c9e840681516c27c8b39e54d4bbbf210abcc79637
+matched_sampling_algorithm: sha256_seed_step_position_mod_n_v1
+matched_sampling_with_replacement: true
+
+# Paper Sec. 3.2: combine a persistent Nyström summary with the current reference minibatch.
+triple_token_sampling: uniform_fixed
+triple_nystrom_attraction_ema_enabled: false
+
+# Nyström:Monte Carlo = 2:1, corresponding to paper mixture alpha = 1/3.
+nystrom_reference_weight: 2.0
+triple_nystrom_current_teacher_attraction_enabled: true
+monte_carlo_reference_weight: 1.0
+triple_nystrom_repulsion_fifo_size: 0
+
+# The legacy triple_nystrom_* reference fields belong to V-JEPA 2; other encoders have separate packs.
+triple_nystrom_reference_path: /path/to/elastic-forcing-assets/experiments/triple_video_new8682_824/references/vjepa2_l15_last64_k1024_m1024_matched5k.pt
+triple_nystrom_reference_sha256: 22a23b9bdd8283cf0f5cb41f1a3edfe2aa5badaad4e2bb033bc4a886d5c59b9a
+triple_nystrom_landmarks: 1024
+triple_nystrom_kernel_chunk_size: 32
+triple_nystrom_seed: 0
+
+# Paper Eq. (3): encoder weights after normalization; divide by the explicit divisor, not their sum.
+dino_loss_weight: 10.0
+vjepa_loss_weight: 1.0
+videomae_loss_weight: 1.0
+encoder_loss_divisor: 3.0
+
+# DINOv3: 20 selected frames -> four groups of five -> 4 x 256 spatial tokens.
+dinov3_repo_path: /path/to/elastic-forcing-assets/models/dinov3-src
+dinov3_weight_path: /path/to/elastic-forcing-assets/models/dinov3_vitl16_lvd1689m.pth
+dinov3_source_commit: 6876159a11b4df116f30f667f8c9888617df0751
+dinov3_checkpoint_sha256: b361ce4cccaae083fccaa7a732bd9abb143b5a3736175152f28f331b600f8eec
+dinov3_dense_geometry: temporal_mean5_full256
+dinov3_dense_source_num_frames: 81
+dinov3_dense_frame_indices:
+- 0
+- 4
+- 8
+- 13
+- 17
+- 21
+- 25
+- 29
+- 34
+- 38
+- 42
+- 46
+- 51
+- 55
+- 59
+- 63
+- 67
+- 72
+- 76
+- 80
+dinov3_dense_input_size: 256
+dinov3_dense_patch_size: 16
+dinov3_dense_spatial_axis_indices:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+- 7
+- 8
+- 9
+- 10
+- 11
+- 12
+- 13
+- 14
+- 15
+dinov3_dense_temporal_groups: 4
+dinov3_dense_temporal_pool_size: 5
+dinov3_dense_forward_chunk_frames: 4
+dinov3_dense_gradient_checkpointing: false
+dinov3_nystrom_reference_path: /path/to/elastic-forcing-assets/experiments/triple_video_new8682_824/references/dinov3_vitl16_f20mean5_k1024_m256_matched5k.pt
+dinov3_nystrom_reference_sha256: e6e3fe8d2aca39bf68e5a1a2c384ae40cc1033345d88739fd9e97e4f880f5a3c
+dinov3_nystrom_landmarks: 256
+dinov3_nystrom_kernel_chunk_size: 32
+dinov3_nystrom_seed: 0
+
+# V-JEPA 2: last 64 of 81 frames, block index 15 (the 16th block), 1024 selected tokens.
+vjepa2_model_id: /path/to/elastic-forcing-assets/models/vjepa2-vitl-fpc64-256
+vjepa2_reference_model_id: facebook/vjepa2-vitl-fpc64-256
+vjepa2_model_sha256: 25466aef85727d16546c6cf8c99f12fcfad9cbca8225d45f23685e2e025b786b
+vjepa2_dense_layers:
+- 15
+vjepa2_dense_layer: 15
+vjepa2_dense_num_frames: 64
+vjepa2_dense_source_num_frames: 81
+vjepa2_dense_frame_sampling: last_contiguous
+vjepa2_student_source_num_frames: 81
+vjepa2_student_frame_sampling: last_contiguous
+vjepa2_dense_num_tokens: 1024
+vjepa2_dense_resize_short_side: 292
+vjepa2_dense_crop_size: 256
+vjepa2_dense_gradient_checkpointing: true
+
+# VideoMAEv2: skip frame 0, split the remaining 80 frames into five 16-frame segments.
+videomae_v2_model_id: /path/to/elastic-forcing-assets/models/VideoMAEv2-Large
+videomae_v2_model_revision: 9981a9c8f77118c421e5228e1b219468a4b0238d
+videomae_v2_download_manifest_content_hash: 5e362cfe6fdb1bec9e3e195e5ef43cdfebbdfaec2625b1f60550efd05ead0d7d
+videomae_v2_local_files_only: true
+videomae_v2_dense_layers:
+- 15
+videomae_v2_dense_layer: 15
+videomae_v2_encoder_count: 5
+videomae_v2_skip_leading_frames: 1
+videomae_v2_segment_num_frames: 16
+videomae_v2_source_num_frames: 81
+
+# 256 tokens per segment, hence 1280 tokens for the complete video.
+videomae_v2_dense_num_tokens: 256
+videomae_v2_dense_resize_short_side: 224
+videomae_v2_dense_crop_size: 224
+videomae_v2_dense_gradient_checkpointing: true
+videomae_v2_nystrom_reference_path: /path/to/elastic-forcing-assets/experiments/triple_video_new8682_824/references/videomae_v2_l15_fixed5x16_k256_m256_matched5k.pt
+videomae_v2_nystrom_reference_sha256: 526cad0c388c560c486cb460b3e7df6a4b91826825e3e2b0af10f6ffe8f56a4a
+videomae_v2_nystrom_landmarks: 256
+videomae_v2_nystrom_kernel_chunk_size: 32
+videomae_v2_nystrom_seed: 0
+videomae_v2_nystrom_attraction_weight: 2.0
+videomae_v2_nystrom_current_teacher_attraction_weight: 1.0
+
+# Paper Sec. 3.3: separate distribution batch B, differentiation batch b, and reference minibatch B_ref.
+per_device_microbatch_size: 1
+distribution_samples_per_rank: 64
+
+# Replay the configured per-rank suffix; this release does not draw the paper pseudocode's uniform subset.
+differentiation_samples_per_rank: 32
+fresh_video_partial_gradient: true
+differentiate_full_distribution_loss: true
+
+# Apply B/b once on replay gradients, separately from FSDP averaging compensation.
+differentiation_gradient_scale: 2.0
+distribution_batch_size: 256
+reference_minibatch_size: 128
+
+# Recorded estimator geometry: [B, b, B_ref]. Released self-kernel mean includes diagonal pairs and divides by B^2.
+partial_mmd_geometry:
+- 256
+- 128
+- 128
+partial_mmd_normalization_identity: full_student_population_denominators_v1
+partial_mmd_kss_denominator: 65536
+partial_mmd_fixed_attraction_denominator: 256
+partial_mmd_live_cross_denominator: 32768
+partial_mmd_teacher_self_denominator: 16384
+partial_mmd_gradient_compensation: 2.0
+fresh_video_replay_atol: 1.0e-05
+fresh_video_replay_rtol: 0.0001
+
+# Inactive legacy frame-FD branches: retained for resolved-config/checkpoint compatibility.
+frame_fd_fusion_enabled: false
+fd_repr_models: []
+fd_repr_stats_paths: []
+fd_repr_weights: []
+fd_queue_size: 0
+fd_ema_beta: 0.0
+queue_warmup_samples: 0
+
+# Parameter EMA is disabled; inference uses the trained generator weights directly.
+ema_weight: 0.0
+sharding_strategy: full
+
+# Generator optimizer. Learning-rate schedule parameters below remain unchanged.
+generator_learning_rate: 2.5e-06
+beta1: 0.0
+beta2: 0.999
+weight_decay: 0.0
+max_grad_norm_generator: 10.0
+negative_prompt: ''
+dfake_gen_update_ratio: 1
+
+# Latent tensor [batch, time, channels, height, width]; 21 latent frames decode to 81 RGB frames at 480 x 832.
+latent_video_shape:
+- 1
+- 21
+- 16
+- 60
+- 104
+denoising_loss_type: flow
+
+# Activation recomputation saves GPU memory; it is unrelated to saving model checkpoints.
+gradient_checkpointing: true
+num_frame_per_block: 3
+load_raw_video: false
+model_kwargs:
+  model_name: Wan2.1-T2V-1.3B
+  timestep_shift: 5.0
+
+# Checkpoint/logging policy. Full states include optimizer and per-rank RNG state.
+log_iters: 5
+save_full_state: true
+save_full_state_final_only: false
+checkpoint_keep_last: 0
+checkpoint_model_min_free_gib: 12
+checkpoint_full_min_free_gib: 32
+allow_resume_world_size_change: false
+
+# Optional in-training evaluation is disabled; use scripts/infer.sh for generation.
+eval_interval: 0
+eval_seed: 12345
+eval_num_prompts: 0
+eval_prompt_path: prompts/test_8.txt
+num_workers: 0
+stdout_log_iters: 1
+
+# Optimizer updates, not epochs or diffusion timesteps. Do not shorten the configured cosine horizon.
+training_updates: 150
+num_train_timestep: 1000
+
+# Clean cached context; blocks share the sampled training exit step. Frozen encoders still pass input gradients.
+context_noise: 0
+independent_first_frame: false
+same_step_across_blocks: true
+last_step_only: false
+i2v: false
+num_training_frames: 21
+gc_interval: 25
+
+# Opaque feature/data identities are retained so existing reference packs and checkpoints still match.
+feature_protocol_identity: triple_dinov3_f20mean5_k1024_vjepa2_l15_last64_k1024_videomae_v2_l15_5x16_k256_new8682_824_v1
+matched_video_root: /path/to/new8682_824
+newwan_dataset_alias: new8682_824
+
+# 1.3B: cosine decay over updates 0..125, then the floor through update 150.
+generator_lr_schedule: cosine_window
+generator_lr_cosine_start_step: 0
+generator_lr_cosine_end_step: 125
+generator_lr_min: 5.0e-07

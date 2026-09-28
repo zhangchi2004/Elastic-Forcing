@@ -1,0 +1,24 @@
+{
+  "checkpoint_step": 80,
+  "generator_parameter_tensors": 1095,
+  "active_encoders": [
+    "dinov3",
+    "vjepa2",
+    "videomae_v2"
+  ],
+  "reference_count": 8000,
+  "teacher_bank_content_hash": "6b8f249733c39d865a8a9d4b1963779d5578c6a6d68aa5d96002a4b706c766e9",
+  "human_motion_and_camera_protocols_same_checkpoint": true,
+  "vlm_source_vbench_same_checkpoint": true,
+  "cpu_sampler_matches_evaluated_source": {
+    "continuous_two_prompts": true,
+    "paired_two_prompts": true,
+    "scope": "Small recording generator and real scheduler; no 14B model weights were executed."
+  },
+  "actual_dinov3_metadata_relocation_exact": true,
+  "cpu_tests": {
+    "passed": 51,
+    "skipped_cuda": 1
+  },
+  "five_sample_noise_order_cpu_test": true
+}

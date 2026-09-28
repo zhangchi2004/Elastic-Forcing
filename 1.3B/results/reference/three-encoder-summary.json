@@ -1,0 +1,43 @@
+{
+  "protocol": "Classic VBench; three-encoder generator after 150 updates; official extended prompts; 946 rows; 5 samples per row; 4 fixed shards; continuous RNG per shard initialized with seed 0; RAFT filtering for temporal_flickering",
+  "warning": "The official list contains 946 rows but 944 unique short-prompt strings; under VBench official filename semantics the two duplicated strings share the later row's five files.",
+  "raw_scores": {
+    "subject_consistency": 0.9611354023187111,
+    "background_consistency": 0.9672444401230923,
+    "temporal_flickering": 0.9936142066227284,
+    "motion_smoothness": 0.9844131512560166,
+    "dynamic_degree": 0.6722222222222223,
+    "aesthetic_quality": 0.6596271849447681,
+    "imaging_quality": 0.6853940512979873,
+    "object_class": 0.9572784810126582,
+    "multiple_objects": 0.8640243902439024,
+    "human_action": 0.966,
+    "color": 0.8674415896090772,
+    "spatial_relationship": 0.8033092988378278,
+    "scene": 0.5902616279069768,
+    "appearance_style": 0.20167334747942375,
+    "temporal_style": 0.2467925687432289,
+    "overall_consistency": 0.26572600335523644
+  },
+  "normalized_weighted_scores": {
+    "subject_consistency": 0.9544804430999193,
+    "background_consistency": 0.9556458227800845,
+    "temporal_flickering": 0.9827736892978914,
+    "motion_smoothness": 0.9551051501064032,
+    "dynamic_degree": 0.33611111111111114,
+    "aesthetic_quality": 0.6596271849447681,
+    "imaging_quality": 0.6853940512979873,
+    "object_class": 0.9572784810126582,
+    "multiple_objects": 0.8640243902439024,
+    "human_action": 0.966,
+    "color": 0.8674415896090772,
+    "spatial_relationship": 0.8033092988378278,
+    "scene": 0.7179051665129856,
+    "appearance_style": 0.7054580023872936,
+    "temporal_style": 0.6780015624813981,
+    "overall_consistency": 0.730016492734166
+  },
+  "quality_score": 0.8506365311751023,
+  "semantic_score": 0.8099372204243678,
+  "total_score": 0.8424966690249555
+}

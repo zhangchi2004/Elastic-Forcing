@@ -1,0 +1,43 @@
+independent_first_frame: false
+warp_denoising_step: false
+weight_decay: 0.01
+same_step_across_blocks: true
+discriminator_lr_multiplier: 1.0
+last_step_only: false
+i2v: false
+num_training_frames: 21
+gc_interval: 100
+context_noise: 0
+causal: true
+
+# Opt-in only. Existing Wan and V-JEPA2 distribution-loss configurations keep
+# their original estimator/state format unless this is explicitly enabled.
+frame_fd_fusion_enabled: false
+frame_fd_fusion_mode: grad_norm_ema
+
+# Used only by frame_fd_fusion_mode=fidel_two_level.  All weights are detached
+# and persistent statistics publish only after a successful update.
+fidel_loss_scale_beta: 0.99
+fidel_controller_ema_beta: 0.99
+fidel_controller_warmup_updates: 5
+fidel_chemical_potential_mode: ema_median
+fidel_frame_temperature: 1.0
+fidel_group_temperature: 1.0
+fidel_frame_budget: 1.0
+fidel_video_prior: 0.7
+fidel_frame_prior: 0.3
+fidel_floor_epsilon: 1.0e-8
+fidel_satisfaction_hysteresis: 0.02
+
+# The legacy V-JEPA2 paths keep the one canonical deterministic token subset.
+# The FiDEL configuration opts into a precomputed per-update reference bank.
+vjepa2_token_sampling: uniform_fixed
+
+ckpt_step: 0
+prompt_name: MovieGenVideoBench
+prompt_path: prompts/MovieGenVideoBench.txt
+eval_first_n: 64
+num_samples: 1
+height: 480
+width: 832
+num_frames: 81

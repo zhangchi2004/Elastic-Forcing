@@ -1,0 +1,25 @@
+{
+  "scope": "Historical three-encoder training log; not a rerun of this package. Values retain the precision printed by the original logger.",
+  "checkpoint_step": 80,
+  "active_encoders": [
+    "dinov3",
+    "vjepa2",
+    "videomae_v2"
+  ],
+  "reference_count": 8000,
+  "use_ema": false,
+  "training_log_sha256": "9bcb7cbdc3e741eb24688f1d60125cdd3695e0f03dc538f8a2c83b4cbc023486",
+  "metrics": {
+    "generator_loss": 3.854,
+    "generator_grad_norm": 10.98,
+    "learning_rate": 1.818e-06,
+    "fresh_video_optimizer_step_skipped": 0.0,
+    "triple_dense_global_video_samples": 256.0,
+    "triple_dense_gradient_global_video_samples": 128.0,
+    "triple_dense_current_teacher_global_samples": 128.0,
+    "triple_dense_encoder_vjp_count": 3.0,
+    "dinov3_dense_replay_max_abs": 0.0,
+    "vjepa2_dense_replay_max_abs": 0.0,
+    "videomae_v2_dense_replay_max_abs": 0.0
+  }
+}
